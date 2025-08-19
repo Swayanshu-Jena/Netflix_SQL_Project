@@ -253,7 +253,7 @@ This project is part of my portfolio, showcasing the SQL skills essential for da
 
 Make sure to follow me on social media:
 
-- **Instagram**: [Follow me for daily tips and updates](https://www.instagram.com/sway_anshu_jena/)
+- **Instagram**: [Follow me](https://www.instagram.com/sway_anshu_jena/)
 - **LinkedIn**: [Connect with me professionally](https://www.linkedin.com/in/swayanshu-jena)
 
 Thank you for your support, and I look forward to connecting with you!
