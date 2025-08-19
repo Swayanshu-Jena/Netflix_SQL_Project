@@ -22,14 +22,12 @@ FROM Netflix
 GROUP BY type;
 
 -- 2. Find the most common rating for movies and TV shows
-WITH Rating_Counts AS
-(
+WITH Rating_Counts AS (
 SELECT type, rating, COUNT(*) AS rating_count
 FROM netflix
 GROUP BY type, rating
 ),
-Ranked_Ratings AS 
-(
+Ranked_Ratings AS (
 SELECT type, rating, rating_count, RANK() OVER (PARTITION BY type ORDER BY rating_count DESC) AS rank
 FROM Rating_Counts
 )
@@ -52,21 +50,25 @@ ORDER BY content_count DESC
 LIMIT 5;
 
 -- 5. Identify the longest movie
-SELECT * FROM Netflix
+SELECT * 
+FROM Netflix
 WHERE type = 'Movie' AND duration IS NOT NULL
 ORDER BY SPLIT_PART(duration, ' ', 1)::INT DESC
 LIMIT 1;
 
 -- 6. Find content added in the last 5 years
-SELECT * FROM netflix
+SELECT * 
+FROM netflix
 WHERE TO_DATE(date_added, 'Month DD, YYYY') >= CURRENT_DATE - INTERVAL '5 years'
 
 -- 7. Find all the movies/TV shows by director 'Rajiv Chilaka'
-SELECT * FROM Netflix
+SELECT * 
+FROM Netflix
 WHERE director ILIKE '%Rajiv Chilaka%';
 
 -- 8. List all TV shows with more than 5 seasons
-SELECT * FROM Netflix
+SELECT * 
+FROM Netflix
 WHERE type = 'TV Show' AND SPLIT_PART(duration, ' ', 1)::INT > 5
 ORDER BY SPLIT_PART(duration, ' ', 1)::INT;
 
@@ -94,20 +96,22 @@ ORDER BY Total_Content DESC
 LIMIT 5;
 
 -- 11. List all movies that are documentaries
-SELECT * FROM Netflix
+SELECT * 
+FROM Netflix
 WHERE type = 'Movie' AND listed_in ILIKE '%Documentaries%';
 
 -- 12. Find all content without a director
-SELECT * FROM Netflix
+SELECT * 
+FROM Netflix
 WHERE director IS NULL;
 
 -- 13. Find how many movies actor 'Salman Khan' appeared in last 10 years
-SELECT * FROM netflix
+SELECT * 
+FROM netflix
 WHERE type = 'Movie' AND casts ILIKE '%Salman Khan%' AND release_year >= EXTRACT(Year FROM CURRENT_DATE) - 10;
 
 -- 14. Find the top 10 actors who have appeared in the highest number of movies produced in India
-WITH Actor_Apperance AS
-(
+WITH Actor_Apperance AS (
 SELECT TRIM(UNNEST(STRING_TO_ARRAY(casts, ','))) AS Actor, COUNT(*) AS Movies_Count
 FROM Netflix
 WHERE type = 'Movie' AND country ILIKE '%India%'
